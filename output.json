@@ -1,0 +1,1343 @@
+{
+  "rsm:ValidatedMeteredData_12": {
+    "$": {
+      "xsi:schemaLocation": "http://www.strom.ch ValidatedMeteredData_1p2.xsd",
+      "xmlns:rsm": "http://www.strom.ch",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"
+    },
+    "rsm:ValidatedMeteredData_HeaderInformation": [
+      {
+        "rsm:HeaderVersion": [
+          "1.0"
+        ],
+        "rsm:Sender": [
+          {
+            "rsm:ID": [
+              {
+                "rsm:EICID": [
+                  {
+                    "_": "12X-0000001216-O",
+                    "$": {
+                      "schemeAgencyID": "305"
+                    }
+                  }
+                ]
+              }
+            ],
+            "rsm:Role": [
+              "MDR"
+            ]
+          }
+        ],
+        "rsm:Receiver": [
+          {
+            "rsm:ID": [
+              {
+                "rsm:EICID": [
+                  {
+                    "_": "12X-LIPPUNEREM-T",
+                    "$": {
+                      "schemeAgencyID": "305"
+                    }
+                  }
+                ]
+              }
+            ],
+            "rsm:Role": [
+              "DEC"
+            ]
+          }
+        ],
+        "rsm:InstanceDocument": [
+          {
+            "rsm:DictionaryAgencyID": [
+              "260"
+            ],
+            "rsm:VersionID": [
+              {
+                "_": "2007B",
+                "$": {
+                  "listAgencyID": "260"
+                }
+              }
+            ],
+            "rsm:DocumentID": [
+              "eslevu121963_BR2294_ID742"
+            ],
+            "rsm:DocumentType": [
+              {
+                "$": {
+                  "listAgencyID": "260"
+                },
+                "rsm:ebIXCode": [
+                  "E66"
+                ]
+              }
+            ],
+            "rsm:Creation": [
+              "2019-03-13T08:31:00Z"
+            ],
+            "rsm:Status": [
+              "9"
+            ]
+          }
+        ],
+        "rsm:BusinessScopeProcess": [
+          {
+            "rsm:BusinessReasonType": [
+              {
+                "$": {
+                  "codeListAgency": "260"
+                },
+                "rsm:ebIXCode": [
+                  "E88"
+                ]
+              }
+            ],
+            "rsm:BusinessDomainType": [
+              {
+                "_": "E02",
+                "$": {
+                  "listAgencyID": "260"
+                }
+              }
+            ],
+            "rsm:BusinessSectorType": [
+              "23"
+            ],
+            "rsm:ReportPeriod": [
+              {
+                "rsm:StartDateTime": [
+                  "2019-03-11T23:00:00Z"
+                ],
+                "rsm:EndDateTime": [
+                  "2019-03-12T23:00:00Z"
+                ]
+              }
+            ],
+            "rsm:BusinessService": [
+              {
+                "rsm:ServiceTransaction": [
+                  {
+                    "$": {
+                      "isIntelligibleCheckRequired": "true"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "rsm:MeteringData": [
+      {
+        "rsm:DocumentID": [
+          "eslevu121963_D"
+        ],
+        "rsm:Interval": [
+          {
+            "rsm:StartDateTime": [
+              "2019-03-11T23:00:00Z"
+            ],
+            "rsm:EndDateTime": [
+              "2019-03-12T23:00:00Z"
+            ]
+          }
+        ],
+        "rsm:Resolution": [
+          {
+            "rsm:Resolution": [
+              "15"
+            ],
+            "rsm:Unit": [
+              "MIN"
+            ]
+          }
+        ],
+        "rsm:ConsumptionMeteringPoint": [
+          {
+            "rsm:VSENationalID": [
+              {
+                "_": "CH100790123450000000D011000800065",
+                "$": {
+                  "schemeID": "VSE",
+                  "schemeAgencyID": "260"
+                }
+              }
+            ]
+          }
+        ],
+        "rsm:Product": [
+          {
+            "rsm:ID": [
+              {
+                "_": "8716867000030",
+                "$": {
+                  "schemeAgencyID": "9"
+                }
+              }
+            ],
+            "rsm:MeasureUnit": [
+              "KWH"
+            ]
+          }
+        ],
+        "rsm:Observation": [
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "1"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "2"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "3"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "4"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.800"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "5"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "6"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "7"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "8"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "9"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "10"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "11"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "12"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "13"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "14"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "15"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "16"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "17"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "18"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "19"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "20"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "21"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "22"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "23"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "24"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "25"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "26"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "27"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "28"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "29"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "30"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "31"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "32"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "33"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.800"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "34"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "5.400"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "35"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "36"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "37"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "38"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "39"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "40"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "41"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.800"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "42"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "5.100"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "43"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "44"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "45"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "4.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "46"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.100"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "47"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "48"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "49"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "50"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "51"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "52"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "53"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "54"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "55"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "56"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "57"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "58"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "59"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "60"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.500"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "61"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "62"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.100"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "63"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "64"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.300"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "65"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "66"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "67"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "68"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "69"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "70"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "71"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "72"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "73"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "74"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "75"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.400"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "76"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.100"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "77"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "3.000"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "78"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "79"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "80"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "81"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "82"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "83"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "84"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "85"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "86"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "87"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "88"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.900"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "89"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.800"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "90"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "1.200"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "91"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "92"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.400"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "93"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "94"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.700"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "95"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "2.100"
+            ]
+          },
+          {
+            "rsm:Position": [
+              {
+                "rsm:Sequence": [
+                  "96"
+                ]
+              }
+            ],
+            "rsm:Volume": [
+              "0.600"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
