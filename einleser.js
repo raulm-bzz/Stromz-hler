@@ -5,7 +5,7 @@ const parser = new xml2js.Parser();
 
 function read_SDAT(file_path) {
 
-    fs.readFile('SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml', 'utf8', (err, data) => {
+    fs.readFile(file_path, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading the file:', err);
             return;
@@ -22,13 +22,6 @@ function read_SDAT(file_path) {
             let json_string_fixed = raw_jsonOutput.replace(/'/g, '"');
             let jsonObject = JSON.parse(json_string_fixed)
 
-            // Save start and end times in Interval as JSON Object
-            let interval = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Interval"][0]
-            interval["StartDateTime"] = interval["rsm:StartDateTime"];
-            delete interval["rsm:StartDateTime"];
-            interval["EndDateTime"] = interval["rsm:EndDateTime"];
-            delete interval["rsm:EndDateTime"];
-
             // Function to replace single values which are initially saved as an array to turn them into a normal/single key
             function replace_single_value(obj) {
                 for (let key in obj) {
@@ -37,10 +30,13 @@ function read_SDAT(file_path) {
                     }
                 }
             }
-
-            // Replace the saved values as datestrings instead of an array of only one string
+            // Save start and end times in Interval as JSON Object
+            let interval = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Interval"][0]
+            interval["StartDateTime"] = interval["rsm:StartDateTime"];
+            delete interval["rsm:StartDateTime"];
+            interval["EndDateTime"] = interval["rsm:EndDateTime"];
+            delete interval["rsm:EndDateTime"];
             replace_single_value(interval)
-            console.log(interval)
 
             // Save the resolution
             let resolution = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Resolution"][0]
@@ -50,7 +46,23 @@ function read_SDAT(file_path) {
             delete resolution["rsm:Unit"];
             replace_single_value(resolution)
 
+            let observations = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Observation"]
+            counter = 1
+            for (let key in observations) {
+                observations[key].Sequence = counter;
+                delete observations[key]["rsm:Position"]
+                counter += 1
+            }
+
+            for (let key in observations) {
+                observations[key]["Volume"] = observations[key]["rsm:Volume"];
+                delete observations[key]["rsm:Volume"]
+                replace_single_value(observations[key])
+                observations[key]["Volume"] = parseFloat(observations[key]["Volume"])
+            }
+            console.log(interval)
             console.log(resolution)
+            console.log(observations)
 
             fs.writeFile("data.json", json_string_fixed, (error) => {
                     if (error) {
@@ -63,3 +75,9 @@ function read_SDAT(file_path) {
         })
     })
 }
+
+
+
+
+
+read_SDAT("SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml")
