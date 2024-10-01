@@ -97,8 +97,7 @@ function read_SDAT(file_path) {
             const StartDate = interval.StartDateTime.split('T')[0];
             const EndDate = interval.EndDateTime.split("T")[0];
 
-
-            fs.writeFile(`./SDAT_Files/SDAT_${file_name_type}_${StartDate} ${EndDate}.json`, JSON.stringify(final), (error) => {
+            fs.writeFile(`./SDAT_Files/SDAT_${file_name_type}_${StartDate} ${EndDate}.json`, JSON.stringify(final, null, 2), (error) => {
                     if (error) {
                         console.error(error);
                         throw error;
@@ -110,15 +109,19 @@ function read_SDAT(file_path) {
     })
 }
 
-fs.readdir("./SDAT-Files", (error, files) => {
-    if (error) {
-        return console.error('Error reading directory:', error);
-    }
+function read_SDAT_all(dir_path){
+    fs.readdir(dir_path, (error, files) => {
+        if (error) {
+            return console.error('Error reading directory:', error);
+        }
 
-    // Iterate through each file
-    files.forEach(file => {
-        const filePath = path.join("SDAT-Files", file);
-        read_SDAT(filePath)
+        // Iterate through each file
+        files.forEach(file => {
+            const filePath = path.join(dir_path, file);
+            read_SDAT(filePath)
 
+        });
     });
-});
+}
+
+read_SDAT_all("SDAT-Files")
