@@ -15,19 +15,9 @@ fs.readFile('SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ES
             return;
         }
 
-        // Convert the result (JavaScript object) to JSON
         const jsonOutput = JSON.stringify(result, null, 2); // Pretty print JSON
-
-        // Output the JSON to the console
+        
         console.log(jsonOutput);
 
-        // Optionally, you can write the JSON to a file
-        fs.writeFile('output.json', jsonOutput, (err) => {
-            if (err) {
-                console.error('Error writing JSON to file:', err);
-            } else {
-                console.log('JSON has been saved to output.json');
-            }
-        });
     });
 });
