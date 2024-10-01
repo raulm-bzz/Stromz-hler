@@ -2,6 +2,8 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const util = require('util');
 const parser = new xml2js.Parser();
+const path = require("path")
+
 
 function read_SDAT(file_path) {
 
@@ -30,8 +32,37 @@ function read_SDAT(file_path) {
                     }
                 }
             }
+
+            // Check if File is for Consumption or Production
+            let type = {}
+            let file_name_type = ""
+            let metered_data_num = 12
+            if(["rsm:ValidatedMeteredData_12"] in jsonObject){
+                metered_data_num = 12
+            } else if(["rsm:ValidatedMeteredData_13"] in jsonObject){
+                metered_data_num = 13
+            } else if(["rsm:ValidatedMeteredData_14"] in jsonObject){
+                metered_data_num = 14
+            }
+
+            try{
+                if("rsm:ConsumptionMeteringPoint" in jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]){
+                    type = {type: "Consumption"}
+                    file_name_type = "CONS"
+                } else if ("rsm:ProductionMeteringPoint" in jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]){
+                    type = {type: "Production"}
+                    file_name_type = "PROD"
+                }
+            } catch(err){
+                console.log(file_path)
+                console.log(err.message)
+                return
+            }
+
+
+
             // Save start and end times in Interval as JSON Object
-            let interval = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Interval"][0]
+            let interval = jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]["rsm:Interval"][0]
             interval["StartDateTime"] = interval["rsm:StartDateTime"];
             delete interval["rsm:StartDateTime"];
             interval["EndDateTime"] = interval["rsm:EndDateTime"];
@@ -39,15 +70,15 @@ function read_SDAT(file_path) {
             replace_single_value(interval)
 
             // Save the resolution
-            let resolution = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Resolution"][0]
+            let resolution = jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]["rsm:Resolution"][0]
             resolution["Resolution"] = resolution["rsm:Resolution"];
             delete resolution["rsm:Resolution"];
             resolution["Unit"] = resolution["rsm:Unit"];
             delete resolution["rsm:Unit"];
             replace_single_value(resolution)
 
-            let observations = jsonObject["rsm:ValidatedMeteredData_12"]["rsm:MeteringData"][0]["rsm:Observation"]
-            counter = 1
+            let observations = jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]["rsm:Observation"]
+            let counter = 1
             for (let key in observations) {
                 observations[key].Sequence = counter;
                 delete observations[key]["rsm:Position"]
@@ -60,11 +91,14 @@ function read_SDAT(file_path) {
                 replace_single_value(observations[key])
                 observations[key]["Volume"] = parseFloat(observations[key]["Volume"])
             }
-            console.log(interval)
-            console.log(resolution)
-            console.log(observations)
 
-            fs.writeFile("data.json", json_string_fixed, (error) => {
+            const final = Object.assign({}, type, interval, resolution, {observations})
+
+            const StartDate = interval.StartDateTime.split('T')[0];
+            const EndDate = interval.EndDateTime.split("T")[0];
+
+
+            fs.writeFile(`./SDAT_Files/SDAT_${file_name_type}_${StartDate} ${EndDate}.json`, JSON.stringify(final), (error) => {
                     if (error) {
                         console.error(error);
                         throw error;
@@ -76,8 +110,15 @@ function read_SDAT(file_path) {
     })
 }
 
+fs.readdir("./SDAT-Files", (error, files) => {
+    if (error) {
+        return console.error('Error reading directory:', error);
+    }
 
+    // Iterate through each file
+    files.forEach(file => {
+        const filePath = path.join("SDAT-Files", file);
+        read_SDAT(filePath)
 
-
-
-read_SDAT("SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml")
+    });
+});
