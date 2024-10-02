@@ -33,6 +33,6 @@ const entrySchema = new mongoose.Schema({
     }]
 });
 
-const entry = mongoose.model("entries", entrySchema, "Stromz-hler");
+const entry = mongoose.model("entries", entrySchema);
 
 module.exports = entry;

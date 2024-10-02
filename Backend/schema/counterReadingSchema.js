@@ -23,6 +23,6 @@ const counterReadingsSchema = new mongoose.Schema({
     }
 });
 
-const counterReading = mongoose.model("counterReading", counterReadingsSchema, "Stromz-hler");
+const counterReading = mongoose.model("counterReading", counterReadingsSchema);
 
 module.exports = counterReading;

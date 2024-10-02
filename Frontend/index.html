@@ -6,6 +6,12 @@
 </head>
 <body>
 <div>
+    <div style="display: inline-block">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" name="startDate">
+        <label for="endDate">End Date</label>
+        <input type="date" id="endDate" name="endDate">
+    </div>
     <canvas id="myChart"></canvas>
 </div>
 
@@ -71,6 +77,7 @@
             }
         });
     }
+
     /*
     1. Get days (select by field above [when to when])
     2. For the day, add times, depending on the zoom
