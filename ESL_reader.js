@@ -34,9 +34,28 @@ function read_ESL(file_path) {
                 final["End"] = final["end"]
                 delete final["end"]
                 let values = meterData["ValueRow"]
-                final.MeterReadings = [values[2]["$"], values[3]["$"], values[6]["$"], values[7]["$"]]
+                let obis_1 = ""
+                let obis_2 = ""
+                let obis_3 = ""
+                let obis_4 = ""
+                values.forEach((el) =>{
+                    if(el["$"]["obis"] === "1-1:1.8.1"){
+                        obis_1 = el["$"]
+                    }
+                    if(el["$"]["obis"] === "1-1:1.8.2"){
+                        obis_2 = el["$"]
+                    }
+                    if(el["$"]["obis"] === "1-1:2.8.1"){
+                        obis_3 = el["$"]
+                    }
+                    if(el["$"]["obis"] === "1-1:2.8.2"){
+                        obis_4 = el["$"]
+                    }
+                })
+                final.MeterReadings = [obis_1, obis_2, obis_3, obis_4]
+                console.log(final)
 
-                fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}s.json`, JSON.stringify(final, null, 2), (error) => {
+                fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}.json`, JSON.stringify(final, null, 2), (error) => {
                         if (error) {
                             console.error(error);
                             throw error;
@@ -67,4 +86,4 @@ function read_ESL_all(dir_path){
 }
 
 read_ESL_all("./ESL-Files")
-//read_ESL("./ESL-Files/EdmRegisterWertExport_20190314_eslevu_20190314090341.xml")
+//read_ESL("./ESL-Files/EdmRegisterWertExport_20201203_eslevu_20201203051203.xml")
