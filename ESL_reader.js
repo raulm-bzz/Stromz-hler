@@ -1,5 +1,3 @@
-// noinspection DuplicatedCode
-
 const fs = require('fs');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
@@ -7,7 +5,7 @@ const path = require("path")
 const util = require("util")
 
 function read_ESL(file_path) {
-
+    console.log(`Reading File -> ${file_path}`)
     fs.readFile(file_path, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading the file:', err);
@@ -25,34 +23,69 @@ function read_ESL(file_path) {
             let json_string_fixed = raw_jsonOutput.replace(/'/g, '"');
             let jsonObject = JSON.parse(json_string_fixed)
 
-            // Function to replace single values which are initially saved as an array to turn them into a normal/single key
-            function replace_single_value(obj) {
-                for (let key in obj) {
-                    if (Array.isArray(obj[key]) && obj[key].length === 1) {
-                        obj[key] = obj[key][0];
-                    }
-                }
-            }
+            let TimePeriods = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"]
+            TimePeriods.forEach((period) => {
+                try{
+                    let EndDate = period["$"]
+                    let final = EndDate
+                    EndDate["end"] = EndDate["end"].split("T")[0]
+                    final["End"] = final["end"]
+                    delete final["end"]
+                    let values = period["ValueRow"]
+                    let obis_1 = ""
+                    let obis_2 = ""
+                    let obis_3 = ""
+                    let obis_4 = ""
+                    values.forEach((el) =>{
+                        if(el["$"]["obis"] === "1-1:1.8.1"){
+                            obis_1 = el["$"]
+                        }
+                        if(el["$"]["obis"] === "1-1:1.8.2"){
+                            obis_2 = el["$"]
+                        }
+                        if(el["$"]["obis"] === "1-1:2.8.1"){
+                            obis_3 = el["$"]
+                        }
+                        if(el["$"]["obis"] === "1-1:2.8.2"){
+                            obis_4 = el["$"]
+                        }
+                    })
 
-            let meterData = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"][0]
-            let EndDate = meterData["$"]
-            let final = EndDate
-            EndDate["end"] = EndDate["end"].split("T")[0]
-            final["End"] = final["end"]
-            delete final["end"]
-            let values = meterData["ValueRow"]
-            final.MeterReadings = [values[2]["$"], values[3]["$"], values[6]["$"], values[7]["$"]]
+                    // Check if obis are empty
+                    if (obis_1 !== "" && obis_2 !== "" && obis_3 !== "" && obis_4 !== ""){
+                        final.MeterReadings = [obis_1, obis_2, obis_3, obis_4]
 
-            fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}s.json`, JSON.stringify(final, null, 2), (error) => {
-                    if (error) {
-                        console.error(error);
-                        throw error;
+                        fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}.json`, JSON.stringify(final, null, 2), (error) => {
+                                if (error) {
+                                    console.error(error);
+                                    throw error;
+                                }
+                            }
+                        )
                     }
+
+                } catch (e){
                 }
-            )
+            })
 
         })
     })
 }
 
-read_ESL("EdmRegisterWertExport_20190131_eslevu_20190322160349.xml")
+function read_ESL_all(dir_path){
+    fs.readdir(dir_path, (error, files) => {
+        if (error) {
+            return console.error('Error reading directory:', error);
+        }
+
+        // Iterate through each file
+        files.forEach(file => {
+            const filePath = path.join(dir_path, file);
+            read_ESL(filePath)
+
+        });
+    });
+}
+
+read_ESL_all("./ESL-Files")
+//read_ESL("./ESL-Files/EdmRegisterWertExport_20200522_eslevu_20200522150502.xml")
