@@ -76,6 +76,7 @@ function read_SDAT(file_path) {
             delete resolution["rsm:Unit"];
             replace_single_value(resolution)
 
+            // Save Observations
             let observations = jsonObject[`rsm:ValidatedMeteredData_${metered_data_num}`]["rsm:MeteringData"][0]["rsm:Observation"]
             let counter = 1
             for (let key in observations) {
