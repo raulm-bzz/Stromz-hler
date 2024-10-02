@@ -6,7 +6,6 @@ const util = require("util")
 
 function read_ESL(file_path) {
     console.log(`Reading File -> ${file_path}`)
-
     fs.readFile(file_path, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading the file:', err);
@@ -26,7 +25,6 @@ function read_ESL(file_path) {
 
             let TimePeriods = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"]
             TimePeriods.forEach((period) => {
-                console.log(period)
                 try{
                     let EndDate = period["$"]
                     let final = EndDate
