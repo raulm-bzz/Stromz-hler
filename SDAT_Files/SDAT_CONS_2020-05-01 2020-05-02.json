@@ -1,0 +1,489 @@
+{
+  "type": "Consumption",
+  "StartDateTime": "2020-05-01T22:00:00Z",
+  "EndDateTime": "2020-05-02T22:00:00Z",
+  "Resolution": "15",
+  "Unit": "MIN",
+  "observations": [
+    {
+      "rsm:Condition": "21",
+      "Sequence": 1,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 2,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 3,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 4,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 5,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 6,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 7,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 8,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 9,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 10,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 11,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 12,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 13,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 14,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 15,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 16,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 17,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 18,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 19,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 20,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 21,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 22,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 23,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 24,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 25,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 26,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 27,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 28,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 29,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 30,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 31,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 32,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 33,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 34,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 35,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 36,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 37,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 38,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 39,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 40,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 41,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 42,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 43,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 44,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 45,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 46,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 47,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 48,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 49,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 50,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 51,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 52,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 53,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 54,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 55,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 56,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 57,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 58,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 59,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 60,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 61,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 62,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 63,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 64,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 65,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 66,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 67,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 68,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 69,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 70,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 71,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 72,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 73,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 74,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 75,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 76,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 77,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 78,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 79,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 80,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 81,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 82,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 83,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 84,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 85,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 86,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 87,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 88,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 89,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 90,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 91,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 92,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 93,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 94,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 95,
+      "Volume": 0
+    },
+    {
+      "rsm:Condition": "21",
+      "Sequence": 96,
+      "Volume": 0
+    }
+  ]
+}
