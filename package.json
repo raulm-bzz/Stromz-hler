@@ -1,7 +1,12 @@
 {
   "dependencies": {
     "chart.js": "^4.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
     "fs": "^0.0.1-security",
+    "mogoose": "^0.0.1-security",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
     "xml2js": "^0.6.2"
   }
 }
