@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 <div>
-    <div style="display: inline-block">
-        <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" name="startDate">
-        <label for="endDate">End Date</label>
-        <input type="date" id="endDate" name="endDate">
-    </div>
-    <canvas id="myChart"></canvas>
+  <div style="display: inline-block">
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" name="startDate">
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" name="endDate">
+  </div>
+  <canvas id="myChart"></canvas>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-    async function getData(){
+    const startDate = document.getElementById("startDate");
+    const endDate = document.getElementById("endDate");
+    let chartInstance1;
+
+    startDate.addEventListener("change", () => {
+        processDataNEW(Data)
+    });
+    endDate.addEventListener("change", () => {
+        processDataNEW(Data)
+    });
+
+    let Data;
+
+    async function getData() {
         try {
-            const response = await fetch('http://localhost:3000/api');
+            const response = await fetch('http://localhost:3000/api/entries');
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
             }
 
             const data = await response.json();
             processData(data)
+            Data = data;
             return data;
 
         } catch (error) {
@@ -33,6 +47,7 @@
             return null;
         }
     }
+
     function processData(data) {
         let labels = [];
         let datasets = [];
@@ -48,7 +63,7 @@
 
 
                 dayLabels.push(observation['sequence']);
-                dayValues.push(observation['volume'] + Math.random()*2-1);
+                dayValues.push(observation['volume'] + Math.random() * 2 - 1);
             }
             if (i === 0) labels = dayLabels;
 
@@ -64,7 +79,7 @@
 
         const ctx = document.getElementById('myChart');
 
-        new Chart(ctx, {
+        chartInstance1 = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
@@ -78,6 +93,61 @@
         });
     }
 
+    function processDataNEW(data) {
+        let labels = [];
+        let datasets = [];
+        if(startDate.value){
+            const startDateValue = new Date(startDate.value);
+        }
+        if(endDate.value){
+            const endDateValue = new Date(endDate.value);
+        }
+
+
+        for (let i = 0; i < data.length; i++) {
+            if (endDateValue>= new Date(data[i]["_id"].slice(0, -1)) >= startDateValue) {
+              let dayLabels = [];
+              let dayValues = [];
+
+
+              for (let c = 0; c < data[i]['observations'].length; c++) {
+                  const observation = data[i]['observations'][c];
+
+
+                  dayLabels.push(observation['sequence']);
+                  dayValues.push(observation['volume'] + Math.random() * 2 - 1);
+              }
+              if (i === 0) labels = dayLabels;
+
+              datasets.push({
+                  label: `Day ${i + 1}`,
+                  data: dayValues,
+                  fill: false,
+                  borderColor: getRandomColor(),
+                  tension: 0.1
+              });
+          }
+
+
+          const ctx = document.getElementById('myChart');
+          if (chartInstance1) {
+              chartInstance1.destroy();
+          }
+          chartInstance1 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                  labels: labels,
+                  datasets: datasets
+              },
+              options: {
+                  borderWidth: 2,
+                  hoverBorderColor: '#00FFAA',
+                  hoverBorderWidth: 3
+              }
+          });
+        }
+    }
+
     /*
     1. Get days (select by field above [when to when])
     2. For the day, add times, depending on the zoom
@@ -86,6 +156,7 @@
     5. repeat 3. 4. for each day in count
     6. load chart
      */
+    //Idea TIME_VALUE_JSON_OR_WHATEVER(number) = 14:45 oder 09:30
 
     function getRandomColor() {
         const letters = '0123456789ABCDEF';

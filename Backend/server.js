@@ -3,7 +3,7 @@ const app = express();
 const {connect} = require("mongoose");
 const entries = require('./schema/entrySchema.js');
 const counterReadings = require('./schema/counterReadingSchema.js');
-const Routes = require("./routes.js")
+const Routes = require("./entryRoutes.js")
 
 const cors = require("cors")
 
@@ -13,7 +13,7 @@ app.use(cors({
 
 app.use(express.json())
 
-app.use("/api/", Routes)
+app.use("/api/entries/", Routes)
 
 connect("mongodb://127.0.0.1:27017/Stromz-hler", {
     useNewUrlParser: true,

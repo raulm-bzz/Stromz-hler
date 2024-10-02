@@ -17,13 +17,14 @@
 </header>
 
 <main>
-  <h1>Upload Data</h1>
+  <h1>Upload Data</h1>`
   <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
     <label for="data-file">Choose a file to upload:</label>
     <input type="file" id="data-file" name="data-file" accept=".csv, .json, .xml">
     <button type="submit">Upload</button>
   </form>
-  <p id="upload-message">Please upload your data file. Supported formats are CSV, JSON, and XML.</p>
+  <canvas id="myChart"><p id="upload-message">Please upload your data file. The Supported format is XML.</p></canvas>
+
 </main>
 
 <footer>
