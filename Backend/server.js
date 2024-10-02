@@ -27,7 +27,7 @@ connect("mongodb://127.0.0.1:27017/Stromz-hler", {
 
 async function createModels() {
     const entry = new entries({
-        _id: '2019-03-11T23:00:00Z' + 'P',
+        _id: '2019-03-12T23:00:00Z' + 'P',
         type: 'Produktion',
         timeInterval:{resolution: 15, unit: 'MIN'
         },

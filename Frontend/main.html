@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Energy Producer Visualization</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
 </head>
 <body>
 <header>
@@ -18,16 +22,15 @@
 
 <main>
   <h1>Energy Data Visualization</h1>
-  <div style="display: inline-block">
-    <label for="startDate">Start Date</label>
-    <input type="date" id="startDate" name="startDate">
-    <label for="endDate">End Date</label>
-    <input type="date" id="endDate" name="endDate">
-  </div>
   <div id="visualization">
-    <!-- Placeholder for the diagram/visualization -->
-    <p>The diagram will appear here once the data is loaded.</p>
+    <div style="display: inline-block">
+      <label for="startDate">Start Date</label>
+      <input type="date" id="startDate" name="startDate">
+      <button id="resetZoomButton">Reset Zoom Button</button>
+    </div>
+    <canvas id="myChart"></canvas>
   </div>
+  <script src="script.js"></script>
 </main>
 
 <footer>
