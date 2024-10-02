@@ -1,5 +1,3 @@
-// noinspection DuplicatedCode
-
 const fs = require('fs');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
@@ -7,6 +5,7 @@ const path = require("path")
 const util = require("util")
 
 function read_ESL(file_path) {
+    console.log(`Reading File -> ${file_path}`)
 
     fs.readFile(file_path, 'utf8', (err, data) => {
         if (err) {
@@ -25,46 +24,51 @@ function read_ESL(file_path) {
             let json_string_fixed = raw_jsonOutput.replace(/'/g, '"');
             let jsonObject = JSON.parse(json_string_fixed)
 
-            console.log(`Reading File -> ${file_path}`)
-            let meterData = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"][0]
-            try{
-                let EndDate = meterData["$"]
-                let final = EndDate
-                EndDate["end"] = EndDate["end"].split("T")[0]
-                final["End"] = final["end"]
-                delete final["end"]
-                let values = meterData["ValueRow"]
-                let obis_1 = ""
-                let obis_2 = ""
-                let obis_3 = ""
-                let obis_4 = ""
-                values.forEach((el) =>{
-                    if(el["$"]["obis"] === "1-1:1.8.1"){
-                        obis_1 = el["$"]
-                    }
-                    if(el["$"]["obis"] === "1-1:1.8.2"){
-                        obis_2 = el["$"]
-                    }
-                    if(el["$"]["obis"] === "1-1:2.8.1"){
-                        obis_3 = el["$"]
-                    }
-                    if(el["$"]["obis"] === "1-1:2.8.2"){
-                        obis_4 = el["$"]
-                    }
-                })
-                final.MeterReadings = [obis_1, obis_2, obis_3, obis_4]
-                console.log(final)
-
-                fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}.json`, JSON.stringify(final, null, 2), (error) => {
-                        if (error) {
-                            console.error(error);
-                            throw error;
+            let TimePeriods = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"]
+            TimePeriods.forEach((period) => {
+                console.log(period)
+                try{
+                    let EndDate = period["$"]
+                    let final = EndDate
+                    EndDate["end"] = EndDate["end"].split("T")[0]
+                    final["End"] = final["end"]
+                    delete final["end"]
+                    let values = period["ValueRow"]
+                    let obis_1 = ""
+                    let obis_2 = ""
+                    let obis_3 = ""
+                    let obis_4 = ""
+                    values.forEach((el) =>{
+                        if(el["$"]["obis"] === "1-1:1.8.1"){
+                            obis_1 = el["$"]
                         }
-                    }
-                )
+                        if(el["$"]["obis"] === "1-1:1.8.2"){
+                            obis_2 = el["$"]
+                        }
+                        if(el["$"]["obis"] === "1-1:2.8.1"){
+                            obis_3 = el["$"]
+                        }
+                        if(el["$"]["obis"] === "1-1:2.8.2"){
+                            obis_4 = el["$"]
+                        }
+                    })
 
-            } catch (e){
-            }
+                    // Check if obis are empty
+                    if (obis_1 !== "" && obis_2 !== "" && obis_3 !== "" && obis_4 !== ""){
+                        final.MeterReadings = [obis_1, obis_2, obis_3, obis_4]
+
+                        fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}.json`, JSON.stringify(final, null, 2), (error) => {
+                                if (error) {
+                                    console.error(error);
+                                    throw error;
+                                }
+                            }
+                        )
+                    }
+
+                } catch (e){
+                }
+            })
 
         })
     })
@@ -86,4 +90,4 @@ function read_ESL_all(dir_path){
 }
 
 read_ESL_all("./ESL-Files")
-//read_ESL("./ESL-Files/EdmRegisterWertExport_20201203_eslevu_20201203051203.xml")
+//read_ESL("./ESL-Files/EdmRegisterWertExport_20200522_eslevu_20200522150502.xml")
