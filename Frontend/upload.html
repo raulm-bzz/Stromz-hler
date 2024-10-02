@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Data for Visualization</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="main.html">Visualization</a></li>
+      <li><a href="upload.html">Upload Data</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1>Upload Data</h1>
+  <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+    <label for="data-file">Choose a file to upload:</label>
+    <input type="file" id="data-file" name="data-file" accept=".csv, .json, .xml">
+    <button type="submit">Upload</button>
+  </form>
+  <p id="upload-message">Please upload your data file. Supported formats are CSV, JSON, and XML.</p>
+</main>
+
+<footer>
+  <p>&copy; 2024 Energy Producer Analytics</p>
+</footer>
+</body>
+</html>
