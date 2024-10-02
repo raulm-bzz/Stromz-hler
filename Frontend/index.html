@@ -12,35 +12,86 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
     async function getData(){
-        json = await fetch('http://localhost:3000/api')
+        try {
+            const response = await fetch('http://localhost:3000/api');
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            processData(data)
+            return data;
+
+        } catch (error) {
+            console.error('Fetch error:', error);
+            return null;
+        }
+    }
+    function processData(data) {
+        let labels = [];
+        let datasets = [];
+
+
+        for (let i = 0; i < data.length; i++) {
+            let dayLabels = [];
+            let dayValues = [];
+
+
+            for (let c = 0; c < data[i]['observations'].length; c++) {
+                const observation = data[i]['observations'][c];
+
+
+                dayLabels.push(observation['sequence']);
+                dayValues.push(observation['volume'] + Math.random()*2-1);
+            }
+            if (i === 0) labels = dayLabels;
+
+            datasets.push({
+                label: `Day ${i + 1}`,
+                data: dayValues,
+                fill: false,
+                borderColor: getRandomColor(),
+                tension: 0.1
+            });
+        }
+
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                borderWidth: 2,
+                hoverBorderColor: '#00FFAA',
+                hoverBorderWidth: 3
+            }
+        });
+    }
+    /*
+    1. Get days (select by field above [when to when])
+    2. For the day, add times, depending on the zoom
+    3. get averages for the zoom
+    4. save for day
+    5. repeat 3. 4. for each day in count
+    6. load chart
+     */
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 
-    console.log(json)
-    for (let i=0; i <= json[1].length-4; i++ ){
-        console.log(json[1][i][1]);
-    } //NO worki
-
-    const ctx = document.getElementById('myChart');
+    getData()
 
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            }
-        }
-    });
 </script>
 </body>
 </html>
