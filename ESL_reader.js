@@ -35,13 +35,21 @@ function read_ESL(file_path) {
             }
 
             let meterData = jsonObject["ESLBillingData"]["Meter"][0]["TimePeriod"][0]
-            const EndDate = meterData["$"]
-            console.log(meterData[0])
+            let EndDate = meterData["$"]
+            let final = EndDate
+            EndDate["end"] = EndDate["end"].split("T")[0]
+            final["End"] = final["end"]
+            delete final["end"]
             let values = meterData["ValueRow"]
-            console.log(values[2]["$"])
-            console.log(values[3]["$"])
-            console.log(values[6]["$"])
-            console.log(values[7]["$"])
+            final.MeterReadings = [values[2]["$"], values[3]["$"], values[6]["$"], values[7]["$"]]
+
+            fs.writeFile(`./ESL_Files/ESL_${EndDate["End"]}s.json`, JSON.stringify(final, null, 2), (error) => {
+                    if (error) {
+                        console.error(error);
+                        throw error;
+                    }
+                }
+            )
 
         })
     })
