@@ -10,16 +10,14 @@ const entrySchema = new mongoose.Schema({
         enum: ['Consumption', 'Produktion'],
         required: true
     },
-    timeInterval: {
-        resolution: {
-            type: Number,
-            required: true
-        },
-        unit: {
-            type: String,
-            enum: ['SEC', 'MIN', 'HOUR', 'DAY'],
-            required: true
-        }
+    resolution: {
+        type: Number,
+        required: true
+    },
+    unit: {
+        type: String,
+        enum: ['SEC', 'MIN', 'HOUR', 'DAY'],
+        required: true
     },
     observations: [{
         sequence: {

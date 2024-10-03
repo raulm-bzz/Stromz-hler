@@ -104,7 +104,7 @@ function read_SDAT(file_path) {
                     }
                 }
             )
-
+            return JSON.stringify(final, null, 2);
         })
     })
 }
@@ -125,3 +125,8 @@ function read_SDAT_all(dir_path){
 }
 
 read_SDAT_all("SDAT-Files")
+
+module.exports = {
+    read_SDAT,
+    read_SDAT_all
+};

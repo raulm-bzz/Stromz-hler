@@ -90,6 +90,7 @@ async function createChart() {
             ]
         },
         options: {
+            spanGaps: 1000 * 60 * 60 * 24 * 2,
             responsive: true,
             scales: {
                 x: {
@@ -189,11 +190,6 @@ async function createChart() {
             chart.update();
         }
     };
-
-    const resetZoomButton = document.getElementById('resetZoomButton');
-    resetZoomButton.addEventListener('click', () => {
-        chart.resetZoom();
-    });
 
     startDateInput.addEventListener('change', () => {
         const { productionData: newProductionData, consumptionData: newConsumptionData } = processData(rawData, startDateInput.value);

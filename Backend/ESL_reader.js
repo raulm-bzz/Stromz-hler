@@ -87,5 +87,5 @@ function read_ESL_all(dir_path){
     });
 }
 
-read_ESL_all("./ESL-Files")
+read_ESL_all("C:\\Users\\Leand\\OneDrive - Kantonsschule Hottingen\\Desktop\\School\\Bzz\\M306\\XML-Files\\ESL-Files")
 //read_ESL("./ESL-Files/EdmRegisterWertExport_20200522_eslevu_20200522150502.xml")
