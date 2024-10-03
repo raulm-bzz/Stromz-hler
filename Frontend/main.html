@@ -21,15 +21,26 @@
 </header>
 
 <main>
-  <h1>Energy Data Visualization</h1>
-  <div id="visualization">
+  <h1>Energy gain/loss Data Visualization</h1>
+  <div class="visualization">
     <div style="display: inline-block">
-      <label for="startDate">Jump To Date</label>
-      <input type="date" id="startDate" name="startDate">
+      <label for="jumpToDate">Jump To Date</label>
+      <input type="date" id="jumpToDate" name="startDate">
+      <button id="jumpToDateButton">Jump to Date</button>
     </div>
-    <canvas id="myChart"></canvas>
+    <canvas id="gainLossChart"></canvas>
   </div>
-  <script src="script.js"></script>
+  <script src="./chart1.js"></script>
+  <h1>Energy total over Time </h1>
+  <div class="visualization">
+    <div style="display: inline-block">
+      <label for="jumpToDate2">Jump To Date</label>
+      <input type="date" id="jumpToDate2" name="startDate2">
+      <button id="jumpToDateButton2">Jump to Date</button>
+    </div>
+    <canvas id="monthlyEnergyChart"></canvas>
+  </div>
+  <script src="./chart2.js"></script>
 </main>
 
 <footer>

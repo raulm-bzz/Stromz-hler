@@ -97,7 +97,7 @@ function read_SDAT(file_path) {
             const StartDate = interval.StartDateTime.split('T')[0];
             const EndDate = interval.EndDateTime.split("T")[0];
 
-            fs.writeFile(`./SDAT_Files/SDAT_${file_name_type}_${StartDate} ${EndDate}.json`, JSON.stringify(final, null, 2), (error) => {
+            fs.writeFile(`${__dirname}/SDAT_Files/SDAT_${file_name_type}_${StartDate} ${EndDate}.json`, JSON.stringify(final, null, 2), (error) => {
                     if (error) {
                         console.error(error);
                         throw error;
@@ -124,7 +124,7 @@ function read_SDAT_all(dir_path){
     });
 }
 
-read_SDAT_all("SDAT-Files")
+read_SDAT_all('C:\\Users\\Leand\\OneDrive - Kantonsschule Hottingen\\Desktop\\School\\Bzz\\M306\\XML-Files\\SDAT-Files')
 
 module.exports = {
     read_SDAT,

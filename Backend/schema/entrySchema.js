@@ -7,17 +7,19 @@ const entrySchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['Consumption', 'Produktion'],
+        enum: ['Consumption', 'Production'],
         required: true
     },
-    resolution: {
-        type: Number,
-        required: true
-    },
-    unit: {
-        type: String,
-        enum: ['SEC', 'MIN', 'HOUR', 'DAY'],
-        required: true
+    timeInterval:{
+        resolution: {
+            type: Number,
+            required: true
+        },
+        unit: {
+            type: String,
+            enum: ['SEC', 'MIN', 'HOUR', 'DAY'],
+            required: true
+        }
     },
     observations: [{
         sequence: {

@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res)=>{
     try {
-        const result = await entries.findOne({"_id": new mongo.ObjectId(req.params.id)});
+        const result = await entries.findOne({"_id": req.params.id});
         res.json(result);
     } catch (err) {
         res.status(500).json({message: err.message});

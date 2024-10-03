@@ -1,23 +1,48 @@
+// Improved parseDate function
 function parseDate(dateString) {
-    return moment(dateString.split('Z')[0]);
+    return moment(dateString);
 }
 
 async function fetchData() {
-    const response = await fetch('http://127.0.0.1:3000/api/entries');
-    return await response.json();
+    console.log('ive been called')
+    try {
+        const response = await fetch('http://localhost:3000/api/entries');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Fetched Data:", data);
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch data:", error);
+        return [];
+    }
 }
 
-function processData(rawData, startDate) {
-    rawData.sort((a, b) => parseDate(a._id) - parseDate(b._id));
+function processData(rawData) {
+    if (!Array.isArray(rawData) || rawData.length === 0) {
+        console.error("No valid raw data available.");
+        return { productionData: [], consumptionData: [] };
+    }
 
     const productionData = [];
     const consumptionData = [];
 
     rawData.forEach(entry => {
+        if (!entry._id || !entry.observations || !Array.isArray(entry.observations)) {
+            console.error(`Invalid entry structure:`, entry);
+            return;
+        }
+
         const baseDate = parseDate(entry._id);
-        const isConsumption = entry._id.includes('C');
+        const isConsumption = entry.type === "Consumption";
 
         entry.observations.forEach(obs => {
+            if (typeof obs.volume !== 'number' || typeof obs.sequence !== 'number') {
+                console.error(`Invalid observation:`, obs);
+                return;
+            }
+
             const point = {
                 x: baseDate.clone().add((obs.sequence - 1) * 15, 'minutes'),
                 y: obs.volume
@@ -31,22 +56,21 @@ function processData(rawData, startDate) {
         });
     });
 
-    const filterDate = startDate ? moment(startDate) : moment(0);
-    return {
-        productionData: productionData.filter(d => d.x >= filterDate),
-        consumptionData: consumptionData.filter(d => d.x >= filterDate)
-    };
+    console.log("Processed Production Data:", productionData);
+    console.log("Processed Consumption Data:", consumptionData);
+
+    return { productionData, consumptionData };
 }
 
 function aggregateData(data, interval) {
     const aggregated = [];
     for (let i = 0; i < data.length; i += interval) {
         const chunk = data.slice(i, i + interval);
-        const avgVolume = chunk.reduce((sum, obs) => sum + obs.y, 0) / chunk.length;
-        aggregated.push({
+        const avgPoint = {
             x: chunk[0].x,
-            y: avgVolume
-        });
+            y: chunk.reduce((sum, point) => sum + point.y, 0) / chunk.length
+        };
+        aggregated.push(avgPoint);
     }
     return aggregated;
 }
@@ -65,9 +89,27 @@ function debounce(func, wait) {
 
 async function createChart() {
     const rawData = await fetchData();
-    const startDateInput = document.getElementById('startDate');
-    let { productionData, consumptionData } = processData(rawData, startDateInput.value);
-    const ctx = document.getElementById('myChart').getContext('2d');
+    let { productionData, consumptionData } = processData(rawData);
+
+    // Ensure productionData and consumptionData are arrays
+    productionData = Array.isArray(productionData) ? productionData : [];
+    consumptionData = Array.isArray(consumptionData) ? consumptionData : [];
+
+    console.log("Production Data:", productionData);
+    console.log("Consumption Data:", consumptionData);
+
+    const ctx = document.getElementById('gainLossChart');
+    if (!ctx) {
+        console.error("Cannot find canvas element with id 'gainLossChart'");
+        return;
+    }
+
+    if (productionData.length === 0 && consumptionData.length === 0) {
+        console.error("No valid data to create chart");
+        // Optionally, display a message to the user
+        ctx.innerHTML = "No data available to display the chart.";
+        return;
+    }
 
     let currentInterval = 1;
 
@@ -90,7 +132,6 @@ async function createChart() {
             ]
         },
         options: {
-            spanGaps: 1000 * 60 * 60 * 24 * 2,
             responsive: true,
             scales: {
                 x: {
@@ -155,7 +196,6 @@ async function createChart() {
             }
         }
     });
-
     const updateChartData = debounce((newProductionData, newConsumptionData) => {
         chart.data.datasets[0].data = newProductionData;
         chart.data.datasets[1].data = newConsumptionData;
@@ -191,12 +231,29 @@ async function createChart() {
         }
     };
 
-    startDateInput.addEventListener('change', () => {
-        const { productionData: newProductionData, consumptionData: newConsumptionData } = processData(rawData, startDateInput.value);
-        productionData = newProductionData;
-        consumptionData = newConsumptionData;
-        updateChartData(productionData, consumptionData);
-    });
+    // Add jump to date functionality
+    const jumpToDateInput = document.getElementById('jumpToDate');
+    const jumpToDateButton = document.getElementById('jumpToDateButton');
+
+    function jumpToDate() {
+        const selectedDate = moment(jumpToDateInput.value);
+        if (selectedDate.isValid()) {
+            const minDate = moment.min(productionData.concat(consumptionData).map(d => moment(d.x)));
+            const maxDate = moment.max(productionData.concat(consumptionData).map(d => moment(d.x)));
+
+            if (selectedDate >= minDate && selectedDate <= maxDate) {
+                chart.scales.x.options.min = selectedDate.toDate();
+                chart.scales.x.options.max = moment(selectedDate).add(1, 'month').toDate();
+                chart.update();
+            } else {
+                alert('Selected date is outside the range of available data.');
+            }
+        } else {
+            alert('Please enter a valid date.');
+        }
+    }
+
+    jumpToDateButton.addEventListener('click', jumpToDate);
 }
 
 // Wait for the DOM to be fully loaded before creating the chart
