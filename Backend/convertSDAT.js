@@ -1,22 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const xml2js = require('xml2js');
 
-// Define the input folder path containing SDAT files
-const inputFolderPath = path.join(__dirname, '../SDAT_Files');
-
-// Define a new output folder path (outside of the input folder)
-const outputFolderPath = path.join(__dirname, 'Converted_SDAT_Files');
-
-// Ensure the output folder exists (create if necessary)
-function ensureOutputFolderExists(folderPath) {
-    if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true });
-        console.log(`Output folder created at: ${folderPath}`);
-    }
-}
-
-// Ensure the output folder exists
-ensureOutputFolderExists(outputFolderPath);
+const parser = new xml2js.Parser();
 
 // Function to validate and parse date
 function parseDate(dateString) {
@@ -27,24 +13,91 @@ function parseDate(dateString) {
     return parsedDate;
 }
 
-// Helper function to format the date as required
-function formatDateWithTime(date, type) {
-    if (!(date instanceof Date)) {
-        date = parseDate(date); // Ensure the date is a valid Date object
-    }
-    return `${date.toISOString().split('T')[0]}T23:00:00Z${type.charAt(0).toUpperCase()}`;
+// Function to convert SDAT XML content to JSON object
+async function readSDAT(fileContent) {
+    return new Promise((resolve, reject) => {
+        parser.parseString(fileContent, (err, result) => {
+            if (err) {
+                console.error('Error parsing XML:', err);
+                return reject(err);
+            }
+
+            const raw_jsonOutput = JSON.stringify(result, null, 2);
+            const json_string_fixed = raw_jsonOutput.replace(/'/g, '"');
+            const jsonObject = JSON.parse(json_string_fixed);
+
+            // Logic to extract data from the parsed JSON object...
+            // (Similar to your existing logic to extract type, resolution, unit, and observations)
+
+            resolve(jsonObject); // Resolve with the processed JSON object
+        });
+    });
 }
 
-// Function to create or update the output file based on the observation date
+// Function to process each SDAT file from the uploaded files
+async function processSDATFile(file) {
+    try {
+        console.log(`Processing file: ${file.originalname}`);
+
+        const fileContent = file.buffer.toString('utf-8'); // Read from buffer
+
+        const inputJson = await readSDAT(fileContent); // Read and parse SDAT
+        console.log('Parsed JSON:', inputJson);
+
+        if (!inputJson.observations || !Array.isArray(inputJson.observations)) {
+            console.error(`No observations found in ${file.originalname}`);
+            return;
+        }
+
+        const resolution = parseInt(inputJson.Resolution);
+        const unit = inputJson.Unit;
+        const observations = inputJson.observations.map(obs => ({
+            Sequence: obs.Sequence,
+            Volume: obs.Volume
+        }));
+
+        console.log(`Found ${observations.length} observations for file ${file.originalname}`);
+
+        // Validate StartDateTime and EndDateTime
+        console.log('StartDateTime:', inputJson.StartDateTime);
+        console.log('EndDateTime:', inputJson.EndDateTime);
+
+        const startDate = parseDate(inputJson.StartDateTime);
+        const endDate = parseDate(inputJson.EndDateTime);
+        let currentDate = startDate;
+
+        // Calculate intervals per day based on the resolution
+        const intervalsPerDay = (24 * 60) / resolution;
+
+        // Loop through each day in the range and create/update output files
+        while (currentDate <= endDate) {
+            const dateString = currentDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
+
+            // Prepare observations for the current day
+            const dailyObservations = observations.slice(0, intervalsPerDay).map((obs, index) => ({
+                Sequence: index + 1,
+                Volume: obs.Volume
+            }));
+
+            observations.splice(0, intervalsPerDay); // Remove processed observations
+
+            if (dailyObservations.length > 0) { // Only create/update if there are observations
+                console.log(`Adding observations for date: ${dateString}`);
+                createOrUpdateFile(currentDate, inputJson.type, resolution, unit, dailyObservations); // Function to write data
+            } else {
+                console.log(`No observations to add for date: ${dateString}`);
+            }
+            currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
+        }
+    } catch (error) {
+        console.error(`Error processing file ${file.originalname}: ${error.message}`);
+    }
+}
+
+// Function to create or update the output file based on observation date
 function createOrUpdateFile(date, type, resolution, unit, observations) {
-    const formattedDate = date.toISOString().split('T')[0]; // Format only the date YYYY-MM-DD
-    const filePath = path.join(outputFolderPath, `${formattedDate}.json`);
-
-    // Ensure the directory exists before writing the file
-    console.log(`Ensuring output folder exists: ${outputFolderPath}`);
-    ensureOutputFolderExists(outputFolderPath);
-
-    console.log(`Writing file to path: ${filePath}`);
+    const formattedDate = date.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    const filePath = path.join(__dirname, 'Converted_SDAT_Files', `${formattedDate}.json`);
 
     const newEntry = {
         _id: formatDateWithTime(date, type), // Use the correct format for _id
@@ -75,7 +128,7 @@ function createOrUpdateFile(date, type, resolution, unit, observations) {
             if (!x) {
                 return acc.concat([current]);
             } else {
-                x.volume += current.volume; // Merge the volumes if same sequence
+                x.volume += current.volume; // Merge volumes if same sequence
                 return acc;
             }
         }, [])
@@ -97,91 +150,15 @@ function createOrUpdateFile(date, type, resolution, unit, observations) {
     }
 }
 
-// Function to process each SDAT file
-function processSDATFile(filePath) {
-    try {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        console.log(`Processing file: ${filePath}`);
-
-        if (!content) {
-            console.error(`File is empty: ${filePath}`);
-            return;
-        }
-
-        let inputJson = JSON.parse(content);
-        console.log('Parsed JSON:', inputJson);
-
-        if (!inputJson.observations || !Array.isArray(inputJson.observations)) {
-            console.error(`No observations found in ${filePath}`);
-            return;
-        }
-
-        const resolution = parseInt(inputJson.Resolution);
-        const unit = inputJson.Unit;
-        const observations = inputJson.observations.map(obs => ({
-            Sequence: obs.Sequence,
-            Volume: obs.Volume
-        }));
-
-        console.log(`Found ${observations.length} observations for file ${filePath}`);
-
-        // Validate and log StartDateTime and EndDateTime
-        console.log('StartDateTime:', inputJson.StartDateTime);
-        console.log('EndDateTime:', inputJson.EndDateTime);
-
-        const startDate = parseDate(inputJson.StartDateTime);
-        const endDate = parseDate(inputJson.EndDateTime);
-        let currentDate = startDate;
-
-        // Calculate the number of expected intervals based on the resolution
-        const intervalsPerDay = 24 * 60 / resolution;
-
-        // Loop through each day in the range and create/update the output file
-        while (currentDate <= endDate) {
-            const dateString = currentDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
-
-            // Reset sequence counter for each day
-            let sequenceCounter = 1;
-
-            // Prepare observations for the current day based on the intervals
-            const dailyObservations = observations.slice(0, intervalsPerDay).map((obs) => ({
-                Sequence: sequenceCounter++,
-                Volume: obs.Volume
-            }));
-
-            // Remove those from the list
-            observations.splice(0, intervalsPerDay);
-
-            if (dailyObservations.length > 0) { // Only create the file if there are observations
-                console.log(`Adding observations for date: ${dateString}`);
-                createOrUpdateFile(currentDate, inputJson.type, resolution, unit, dailyObservations); // Pass currentDate for correct _id format
-            } else {
-                console.log(`No observations to add for date: ${dateString}`);
-            }
-            currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
-        }
-    } catch (error) {
-        console.error(`Error processing file ${filePath}: ${error.message}`);
+// Function to ensure the output folder exists
+function ensureOutputFolderExists(folderPath) {
+    if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+        console.log(`Output folder created at: ${folderPath}`);
     }
 }
 
-// Read all SDAT files from the input folder
-fs.readdir(inputFolderPath, (err, files) => {
-    if (err) {
-        console.error('Error reading directory:', err);
-        return;
-    }
+// Ensure the output folder exists
+ensureOutputFolderExists(path.join(__dirname, 'Converted_SDAT_Files'));
 
-    const sdatFiles = files.filter(file => path.extname(file) === '.json' || path.extname(file) === '.sdat'); // Adjust the extension here
-    console.log(`Found ${sdatFiles.length} SDAT files.`);
-
-    if (sdatFiles.length === 0) {
-        console.error('No SDAT files found in the specified directory.');
-        return;
-    }
-
-    sdatFiles.forEach(file => {
-        const filePath = path.join(inputFolderPath, file);
-        processSDATFile(filePath);
-    });
-});
+// Your existing logic to process uploaded files can go here, calling processSDATFile as necessary

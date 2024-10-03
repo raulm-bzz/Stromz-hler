@@ -1,0 +1,26 @@
+{
+  "_id": "2021-10-31T23:00:00ZC",
+  "type": "Consumption",
+  "timeInterval": {
+    "resolution": 15,
+    "unit": "MIN"
+  },
+  "observations": [
+    {
+      "sequence": 1,
+      "volume": 0
+    },
+    {
+      "sequence": 2,
+      "volume": 0
+    },
+    {
+      "sequence": 3,
+      "volume": 0
+    },
+    {
+      "sequence": 4,
+      "volume": 0
+    }
+  ]
+}

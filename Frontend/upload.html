@@ -17,31 +17,56 @@
 </header>
 
 <main>
-  <h1>Upload Data</h1>`
-  <div id="upload-form">
-    <label for="data-file">Choose a file to upload:</label>
-    <input type="file" id="data-file" name="data-file" accept=".xml">
-    <button id="uploadBtn" type="submit">Upload</button>
-  <canvas id="myChart"><p id="upload-message">Please upload your data file. The Supported format is XML.</p></canvas>
-  </div>
-</main>
+  <h1>Upload XML Files or Folders</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="files" name="files" multiple webkitdirectory accept=".xml" />
+    <input type="submit" value="Upload">
+  </form>
 
+  <div id="output"></div>
+
+  <script>
+      const uploadForm = document.getElementById('uploadForm');
+      const output = document.getElementById('output');
+
+      uploadForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const files = document.getElementById('files').files;
+          const formData = new FormData();
+
+          for (let file of files) {
+              if (file.name.includes('LIPPUNEREM')) {
+                  formData.append('files', file);
+              }
+          }
+
+          if (formData.getAll('files').length === 0) {
+              output.textContent = 'No valid files found to upload.';
+              return;
+          }
+
+          try {
+              const response = await fetch('http://localhost:3000/api/upload', {
+                  method: 'POST',
+                  body: formData
+              });
+
+              if (!response.ok) {
+                  throw new Error(`Error uploading files: ${response.statusText}`);
+              }
+
+              const result = await response.json();
+              output.textContent = `Uploaded and processed ${result.message}`;
+          } catch (error) {
+              output.textContent = `Error: ${error.message}`;
+          }
+      });
+
+  </script>
+</main>
 <footer>
   <p>&copy; 2024 Energy Producer Analytics</p>
 </footer>
-<script>
-    document.getElementById('uploadBtn').addEventListener('click', async (event) => {
-        event.preventDefault(); // Prevent the default form submission
-
-        const formData = document.getElementById("data-file")
-        const response = await fetch('http://localhost:3000/api/entries/upload', {
-            method: 'POST',
-            body: formData // Send the FormData directly
-        });
-
-        const result = await response.json();
-        console.log('Server Response:', result);
-    });
-</script>
 </body>
 </html>

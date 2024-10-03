@@ -27,10 +27,10 @@
       <label for="jumpToDate">Jump To Date</label>
       <input type="date" id="jumpToDate" name="startDate">
       <button id="jumpToDateButton">Jump to Date</button>
+      <button onclick="window.createChart1()">Reload Chart 1</button>
     </div>
     <canvas id="gainLossChart"></canvas>
   </div>
-  <script src="./chart1.js"></script>
   <h1>Energy total over Time </h1>
   <div class="visualization">
     <div style="display: inline-block">
@@ -40,6 +40,7 @@
     </div>
     <canvas id="monthlyEnergyChart"></canvas>
   </div>
+  <script src="./chart1.js"></script>
   <script src="./chart2.js"></script>
 </main>
 

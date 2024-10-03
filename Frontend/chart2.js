@@ -1,3 +1,4 @@
+console.log('chart2.js script loaded');
 async function fetchData() {
     const response = await fetch('http://localhost:3000/api/counterReadings/');
     if (!response.ok) {

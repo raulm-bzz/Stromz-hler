@@ -5,17 +5,19 @@ const entries = require('./schema/entrySchema.js');
 const counterReadings = require('./schema/counterReadingSchema.js');
 const entryRoutes = require("./entryRoutes.js");
 const counterReadingRoutes = require("./counterReadingRoutes")
+const uploadRoute = require("./uploadRoute")
 const webRoutes = require("./websiteRoutes");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
-
+app.use(cors());
 
 app.use(express.json())
 
 app.use("/api/entries/", entryRoutes);
 app.use("/api/counterReadings/", counterReadingRoutes)
+app.use("/api/", uploadRoute)
 app.use("/", webRoutes)
 
 connect("mongodb://127.0.0.1:27017/Stromz-hler", {
@@ -65,7 +67,7 @@ function insertData(road) {
 
 
 async function createModels() {
-    await insertData("C:\\Users\\Leand\\WebstormProjects\\Stromz-hler\\Backend\\Converted_SDAT_Files")
+    //await insertData("C:\\Users\\Leand\\WebstormProjects\\Stromz-hler\\Backend\\Converted_SDAT_Files");
     const counterReading = new counterReadings({
         _id: "2019-02-01T00:00:00",
         consumptionHigh: 7642,

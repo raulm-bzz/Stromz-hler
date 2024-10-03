@@ -22,17 +22,4 @@ router.get("/:id", async (req, res)=>{
     }
 })
 
-
-// @Raul so apasse das es inepasst, mit filereader
-router.post('/upload', async (req, res) => {
-    const files = req.files; // Get the uploaded files
-
-    if (!files || files.length === 0) {
-        return res.status(400).send('No files uploaded.');
-    }
-
-    // Process each uploaded file
-
-});
-
 module.exports = router;
